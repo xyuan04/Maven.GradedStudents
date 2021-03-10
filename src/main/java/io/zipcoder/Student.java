@@ -3,15 +3,17 @@ package io.zipcoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Student {
+public class Student implements Comparable<Student>{
     private String firstName;
     private String lastName;
     private ArrayList<Double> examScores = new ArrayList<>();
+    private double avgExamScore;
 
     public Student(String firstName, String lastName, Double[] testScores) {
         this.firstName = firstName;
         this.lastName = lastName;
         examScores.addAll(Arrays.asList(testScores));
+        setAvgExamScore();
     }
 
     public String getFirstName() {
@@ -55,13 +57,14 @@ public class Student {
     }
 
     public double getAverageExamScore() {
+        return avgExamScore;
+    }
+
+    public void setAvgExamScore() {
         double totalScore = 0;
-        double avgScore;
         for (int i = 0; i < examScores.size(); i++) { totalScore += examScores.get(i);
         }
-        avgScore = totalScore/examScores.size();
-
-        return avgScore;
+        avgExamScore = totalScore/examScores.size();
     }
 
     @Override
@@ -71,5 +74,10 @@ public class Student {
         String examScores = String.format("> %s", getExamScores());
 
         return namePart + avgScore + examScores;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return (int)(o.getAverageExamScore() - this.avgExamScore);
     }
 }

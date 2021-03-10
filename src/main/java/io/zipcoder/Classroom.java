@@ -74,74 +74,49 @@ public class Classroom {
     }
 
     public Student[] getStudentsByScore() {
-        double[] highestScoreToLowest = new double[students.length];
-        Student[] smartestToJavaleMagee = new Student[students.length];
-
-        for (int i = 0; i < students.length; i++) {
-            highestScoreToLowest[i] = students[i].getAverageExamScore();
-        }
-
-        Arrays.sort(highestScoreToLowest);
-        double start = 0;
-        double end = highestScoreToLowest.length - 1;
-        double temp;
-        while (end > start) {
-            temp = highestScoreToLowest[(int)end];
-            highestScoreToLowest[(int)end] = highestScoreToLowest[(int)start];
-            highestScoreToLowest[(int)start] = temp;
-            end--;
-            start++;
-        }
-
-        for (int i = 0; i < students.length; i++) {
-            for (int j = 0; j < students.length; j++) {
-                if (students[j].getAverageExamScore() == highestScoreToLowest[i]) {
-                    smartestToJavaleMagee[i] = students[j];
-                }
-            }
-        }
-
-        return smartestToJavaleMagee;
+        Arrays.sort(students);
+        return students;
     }
 
     public void setGradeBook() {
         Student[] sortedStudentsByGrade = getStudentsByScore();
         double count;
         double percentage;
-        ArrayList<Student> aS = new ArrayList<>();
-        ArrayList<Student> bS = new ArrayList<>();
-        ArrayList<Student> cS = new ArrayList<>();
-        ArrayList<Student> dS = new ArrayList<>();
-        ArrayList<Student> fS = new ArrayList<>();
+        ArrayList<Student> aStudents = new ArrayList<>();
+        ArrayList<Student> bStudents = new ArrayList<>();
+        ArrayList<Student> cStudents = new ArrayList<>();
+        ArrayList<Student> dStudents = new ArrayList<>();
+        ArrayList<Student> fStudents = new ArrayList<>();
 
         for(int i = 0; i < sortedStudentsByGrade.length; i++) {
             count = 0;
             for(int j = 0; j < sortedStudentsByGrade.length; j++) {
-                if (sortedStudentsByGrade[i].getAverageExamScore() > sortedStudentsByGrade[j].getAverageExamScore()) {
+                if (sortedStudentsByGrade[i].getAverageExamScore() >= sortedStudentsByGrade[j].getAverageExamScore() && i != j) {
                     count++;
                 }
             }
             percentage = (count * 100) / (sortedStudentsByGrade.length - 1);
 
             if (percentage >= 90) {
-                aS.add(sortedStudentsByGrade[i]);
+                aStudents.add(sortedStudentsByGrade[i]);
             } else if (percentage <= 89 && percentage >= 71) {
-                bS.add(sortedStudentsByGrade[i]);
+                bStudents.add(sortedStudentsByGrade[i]);
             } else if (percentage <= 70 && percentage >= 51) {
-                cS.add(sortedStudentsByGrade[i]);
+                cStudents.add(sortedStudentsByGrade[i]);
             } else if (percentage >= 50 && percentage <= 11) {
-                dS.add(sortedStudentsByGrade[i]);
-            } else fS.add(sortedStudentsByGrade[i]);
+                dStudents.add(sortedStudentsByGrade[i]);
+            } else fStudents.add(sortedStudentsByGrade[i]);
         }
 
-        gradedStudents.put('A', aS);
-        gradedStudents.put('B', bS);
-        gradedStudents.put('C', cS);
-        gradedStudents.put('D', dS);
-        gradedStudents.put('F', fS);
+        gradedStudents.put('A', aStudents);
+        gradedStudents.put('B', bStudents);
+        gradedStudents.put('C', cStudents);
+        gradedStudents.put('D', dStudents);
+        gradedStudents.put('F', fStudents);
     }
 
     public ArrayList<Student> getGradeBook(Character grade) {
         return gradedStudents.get(grade);
     }
+
 }
