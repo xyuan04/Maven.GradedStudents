@@ -189,5 +189,36 @@ public class ClassroomTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGetGradeBook() {
+        // : Given
+        Double[] examScores = {100.0, 100.0, 90.0, 100.0, 93.0};
+        Double[] examScores2 = {75.0, 58.0, 84.0, 96.0, 98.0};
+        Double[] examScores3 = {100.0, 100.0, 100.0, 100.0, 100.0};
+        Student student1 = new Student("student","one", examScores);
+        Student student2 = new Student("student","two", examScores2);
+        Student student3 = new Student("student","three", examScores3);
+
+        Classroom codeClass = new Classroom(3);
+
+        // : When
+        codeClass.addStudent(student1);
+        codeClass.addStudent(student2);
+        codeClass.addStudent(student3);
+        codeClass.setGradeBook();
+
+
+        ArrayList<Student> expected = new ArrayList<>(Arrays.asList(student3));
+        ArrayList<Student> actual = codeClass.getGradeBook('A');
+        System.out.println(codeClass.getGradeBook('A'));
+        System.out.println(codeClass.getGradeBook('B'));
+        System.out.println(codeClass.getGradeBook('C'));
+        System.out.println(codeClass.getGradeBook('D'));
+        System.out.println(codeClass.getGradeBook('F'));
+
+        // : Then
+        Assert.assertEquals(expected, actual);
+    }
+
 
 }

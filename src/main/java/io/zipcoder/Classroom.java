@@ -1,10 +1,10 @@
 package io.zipcoder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class Classroom {
     public Student[] students;
+    public HashMap<Character, ArrayList<Student>> gradedStudents = new HashMap<Character, ArrayList<Student>>();
 
     public Classroom(int maxNumberOfStudents) {
         students = new Student[maxNumberOfStudents];
@@ -104,5 +104,38 @@ public class Classroom {
         return smartestToJavaleMagee;
     }
 
+    public void setGradeBook() {
+        Student[] sortedStudentsByGrade = getStudentsByScore();
+        double count;
+        double percentage;
+        ArrayList<Student> aS = new ArrayList<>();
+        ArrayList<Student> bS = new ArrayList<>();
+        ArrayList<Student> cS = new ArrayList<>();
+        ArrayList<Student> dS = new ArrayList<>();
+        ArrayList<Student> fS = new ArrayList<>();
 
+        for(int i = 0; i < sortedStudentsByGrade.length; i++) {
+            count = 0;
+            for(int j = 0; j < sortedStudentsByGrade.length; j++) {
+                if (sortedStudentsByGrade[i].getAverageExamScore() > sortedStudentsByGrade[j].getAverageExamScore()) {
+                    count++;
+                }
+            }
+            percentage = (count * 100) / (sortedStudentsByGrade.length - 1);
+
+            if (percentage >= 90) {
+                gradedStudents.put('A', new ArrayList<Student>(Arrays.asList(sortedStudentsByGrade[i])));
+            } else if (percentage <= 89 && percentage >= 71) {
+                gradedStudents.put('B', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+            } else if (percentage <= 70 && percentage >= 51) {
+                gradedStudents.put('C', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+            } else if (percentage >= 50 && percentage <= 11) {
+                gradedStudents.put('D', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+            } else gradedStudents.put('F', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+        }
+    }
+
+    public ArrayList<Student> getGradeBook(Character grade) {
+        return gradedStudents.get(grade);
+    }
 }
