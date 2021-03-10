@@ -210,11 +210,11 @@ public class ClassroomTest {
 
         ArrayList<Student> expected = new ArrayList<>(Arrays.asList(student3));
         ArrayList<Student> actual = codeClass.getGradeBook('A');
-        System.out.println(codeClass.getGradeBook('A'));
-        System.out.println(codeClass.getGradeBook('B'));
-        System.out.println(codeClass.getGradeBook('C'));
-        System.out.println(codeClass.getGradeBook('D'));
-        System.out.println(codeClass.getGradeBook('F'));
+//        System.out.println(codeClass.getGradeBook('A'));
+//        System.out.println(codeClass.getGradeBook('B'));
+//        System.out.println(codeClass.getGradeBook('C'));
+//        System.out.println(codeClass.getGradeBook('D'));
+//        System.out.println(codeClass.getGradeBook('F'));
 
         // : Then
         Assert.assertEquals(expected, actual);

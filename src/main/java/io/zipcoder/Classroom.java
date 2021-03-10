@@ -124,15 +124,21 @@ public class Classroom {
             percentage = (count * 100) / (sortedStudentsByGrade.length - 1);
 
             if (percentage >= 90) {
-                gradedStudents.put('A', new ArrayList<Student>(Arrays.asList(sortedStudentsByGrade[i])));
+                aS.add(sortedStudentsByGrade[i]);
             } else if (percentage <= 89 && percentage >= 71) {
-                gradedStudents.put('B', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+                bS.add(sortedStudentsByGrade[i]);
             } else if (percentage <= 70 && percentage >= 51) {
-                gradedStudents.put('C', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+                cS.add(sortedStudentsByGrade[i]);
             } else if (percentage >= 50 && percentage <= 11) {
-                gradedStudents.put('D', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
-            } else gradedStudents.put('F', new ArrayList<>(Arrays.asList(sortedStudentsByGrade[i])));
+                dS.add(sortedStudentsByGrade[i]);
+            } else fS.add(sortedStudentsByGrade[i]);
         }
+
+        gradedStudents.put('A', aS);
+        gradedStudents.put('B', bS);
+        gradedStudents.put('C', cS);
+        gradedStudents.put('D', dS);
+        gradedStudents.put('F', fS);
     }
 
     public ArrayList<Student> getGradeBook(Character grade) {
